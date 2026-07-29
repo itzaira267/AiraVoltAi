@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --background: 230 30% 4%;
+        --foreground: 0 0% 100%;
+        --card: 230 28% 8%;
+        --card-foreground: 0 0% 100%;
+        --popover: 230 28% 7%;
+        --popover-foreground: 0 0% 100%;
+        --primary: 187 100% 50%;
+        --primary-foreground: 230 40% 3%;
+        --secondary: 230 20% 14%;
+        --secondary-foreground: 0 0% 98%;
+        --muted: 230 20% 14%;
+        --muted-foreground: 220 9% 66%;
+        --accent: 152 100% 45%;
+        --accent-foreground: 230 40% 3%;
+        --destructive: 348 100% 55%;
+        --destructive-foreground: 0 0% 100%;
+        --border: 0 0% 100% / 8%;
+        --input: 230 20% 14%;
+        --ring: 187 100% 50%;
+        --radius: 0.5rem;
+    }
+}
+
+@layer base {
+    body {
+        @apply text-foreground;
+    }
+}
+
+@layer base {
+    [data-debug-wrapper="true"] {
+        display: contents !important;
+    }
+}
