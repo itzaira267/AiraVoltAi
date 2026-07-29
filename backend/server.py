@@ -134,6 +134,9 @@ async def get_current_user(request: Request) -> Dict[str, Any]:
 
 
 async def notify(user_id: str, title: str, message: str, kind: str = "info") -> None:
+    user = await db.users.find_one({"user_id": user_id}, {"_id": 0, "settings": 1})
+    if user and user.get("settings", {}).get("notifications") is False:
+        return
     await db.notifications.insert_one(
         {
             "notification_id": f"ntf_{uuid.uuid4().hex[:12]}",
@@ -667,7 +670,7 @@ async def reset_password(payload: ResetIn):
     if exp < now_utc():
         raise HTTPException(status_code=400, detail="Reset token expired")
     await db.users.update_one({"user_id": rec["user_id"]}, {"$set": {"password_hash": hash_password(payload.password)}})
-    await db.password_reset_tokens.update_one({"token": payload.token}, {"$set": {"used": True}})
+    await db.password_reset_tokens.delete_many({"user_id": rec["user_id"]})
     await db.user_sessions.delete_many({"user_id": rec["user_id"]})
     return {"success": True}
 

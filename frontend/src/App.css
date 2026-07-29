@@ -41,7 +41,7 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; font-size: 16px; }
+html { scroll-behavior: smooth; font-size: 16px; overflow-x: hidden; }
 
 body {
     background-color: var(--bg-dark);
@@ -152,10 +152,18 @@ a { color: inherit; }
 .stagger > *:nth-child(6) { animation-delay: 0.5s; }
 
 /* ================= AIRA AVATAR ================= */
-.aira-holo { position: relative; display: inline-flex; align-items: center; justify-content: center; }
-.aira-holo img { display: block; position: relative; z-index: 2; }
-.aira-holo .holo-ring { position: absolute; border: 1px dashed rgba(0,229,255,0.25); border-radius: 50%; animation: rotate 22s linear infinite; }
-.aira-holo .holo-ring.r2 { border-style: solid; border-color: rgba(0,230,118,0.14); animation-duration: 34s; animation-direction: reverse; }
+.aira-holo {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: min(var(--aira-size, 320px), 100%);
+    aspect-ratio: 1 / 1;
+    flex-shrink: 0;
+}
+.aira-holo img { display: block; position: relative; z-index: 2; width: 84%; height: 84%; }
+.aira-holo .holo-ring { position: absolute; inset: 0; border: 1px dashed rgba(0,229,255,0.25); border-radius: 50%; animation: rotate 22s linear infinite; }
+.aira-holo .holo-ring.r2 { inset: 7%; border-style: solid; border-color: rgba(0,230,118,0.14); animation-duration: 34s; animation-direction: reverse; }
 .aira-holo .holo-core { position: absolute; inset: 6%; border-radius: 50%; background: radial-gradient(circle, rgba(0,229,255,0.22) 0%, transparent 68%); filter: blur(4px); }
 .aira-float { animation: float 6s ease-in-out infinite; }
 .aira-blink { animation: airaBlink 6.5s infinite; }
@@ -163,12 +171,11 @@ a { color: inherit; }
 @keyframes rotate { to { transform: rotate(360deg); } }
 @keyframes airaBlink { 0%,92%,100% { opacity: 1; } 94% { opacity: 0.55; } 96% { opacity: 1; } 97.5% { opacity: 0.6; } }
 
-.aira-eye-glow { position: absolute; inset: 0; border-radius: inherit; z-index: 3; pointer-events: none;
+.aira-eye-glow { position: absolute; width: 84%; height: 84%; border-radius: 50%; z-index: 3; pointer-events: none;
     background: radial-gradient(circle at 50% 38%, rgba(0,229,255,0.18) 0%, transparent 45%); animation: eyePulse 3.4s ease-in-out infinite; }
 @keyframes eyePulse { 0%,100% { opacity: 0.35; } 50% { opacity: 0.85; } }
 
 .avatar-circle { border-radius: 50%; object-fit: cover; object-position: 50% 18%; border: 2px solid rgba(0,229,255,0.4); box-shadow: 0 0 35px var(--color-electric-blue-glow); }
-
 /* Loading overlay */
 .aira-loader { position: fixed; inset: 0; z-index: 500; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.5rem; background: rgba(4,5,8,0.9); backdrop-filter: blur(14px); animation: fadeIn 0.3s ease; }
 .aira-loader h3 { font-size: 1.15rem; }
